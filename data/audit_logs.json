@@ -1,5 +1,41 @@
 [
   {
+    "id": "log_1791433397752_76533d0d",
+    "timestamp": "2026-10-08T04:23:17.752Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "admin",
+    "actorRole": "ROOT_ADMIN",
+    "details": "Password tidak sesuai. Percobaan ke-1 dari 5.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791433382295_5af4f2d2",
+    "timestamp": "2026-10-08T04:23:02.295Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "guru.yefri",
+    "actorRole": "guru",
+    "details": "Login berhasil sebagai Guru (Internal ID: USR-8F42A91C).",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791433365570_7b83785c",
+    "timestamp": "2026-10-08T04:22:45.570Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "admin",
+    "actorRole": "admin",
+    "details": "Login berhasil sebagai Kepala Sekolah (ROOT ADMIN) (Internal ID: USR-ROOT-KEPSEK).",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791433358047_bbf0dd57",
+    "timestamp": "2026-10-08T04:22:38.048Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "admin",
+    "actorRole": "admin",
+    "details": "Login berhasil sebagai Kepala Sekolah (ROOT ADMIN) (Internal ID: USR-ROOT-KEPSEK).",
+    "ipAddress": "127.0.0.1"
+  },
+  {
     "id": "log_1791429098148_ca0fb075",
     "timestamp": "2026-10-08T03:11:38.148Z",
     "action": "LOGIN_SUCCESS",

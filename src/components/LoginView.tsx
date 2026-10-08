@@ -219,7 +219,7 @@ export const LoginView: React.FC<LoginViewProps> = ({
                   Kredensial Bawaan Sekolah:
                 </div>
                 <div className="space-y-0.5 font-mono text-[10px]">
-                  <div>&bull; <strong className="text-[#9A6700] dark:text-[#F6C453]">Kepala Sekolah (Admin):</strong> <code className="bg-white/80 dark:bg-[#192B43] px-1 py-0.5 rounded border border-amber-200/50 dark:border-amber-500/20">kepala.sekolah</code> / <code className="bg-white/80 dark:bg-[#192B43] px-1 py-0.5 rounded border border-amber-200/50 dark:border-amber-500/20">Admin123!</code></div>
+                  <div>&bull; <strong className="text-[#9A6700] dark:text-[#F6C453]">Kepala Sekolah (Admin):</strong> <code className="bg-white/80 dark:bg-[#192B43] px-1 py-0.5 rounded border border-amber-200/50 dark:border-amber-500/20">admin</code> / <code className="bg-white/80 dark:bg-[#192B43] px-1 py-0.5 rounded border border-amber-200/50 dark:border-amber-500/20">123</code> <span className="text-[9px] text-slate-400 dark:text-slate-500">(atau admin123)</span></div>
                   <div>&bull; <strong className="text-[#0284C7] dark:text-[#67C7FF]">Guru (User):</strong> <code className="bg-white/80 dark:bg-[#192B43] px-1 py-0.5 rounded border border-blue-200/50 dark:border-blue-500/20">guru.yefri</code> / <code className="bg-white/80 dark:bg-[#192B43] px-1 py-0.5 rounded border border-blue-200/50 dark:border-blue-500/20">Guru123!</code></div>
                 </div>
                 <p className="text-[10px] text-slate-500 dark:text-slate-400 pt-0.5">

@@ -76,9 +76,12 @@ export async function apiLogin(username: string, password: string, rememberMe = 
 
     const contentType = res.headers.get("content-type") || "";
     if (!contentType.includes("application/json")) {
+      console.warn("Unexpected non-JSON response from auth endpoint:", res.status, res.statusText);
       return {
         success: false,
-        message: "Server autentikasi merespons tidak terduga. Silakan muat ulang halaman."
+        message: res.status === 404
+          ? "Endpoint autentikasi tidak ditemukan (404). Pastikan deployment Vercel telah selesai dan server aktif."
+          : `Server autentikasi merespons tidak terduga (${res.status}). Silakan muat ulang halaman.`
       };
     }
 
@@ -132,10 +135,13 @@ export async function apiVerifySession(): Promise<{
       method: "GET",
       headers: getAuthHeaders()
     });
-    const data = await res.json();
-    if (res.ok && data.status === "success" && data.valid) {
-      setStoredUser(data.user);
-      return { valid: true, user: data.user };
+    const contentType = res.headers.get("content-type") || "";
+    if (contentType.includes("application/json")) {
+      const data = await res.json();
+      if (res.ok && data.status === "success" && data.valid) {
+        setStoredUser(data.user);
+        return { valid: true, user: data.user };
+      }
     }
     // Token is invalid
     setStoredToken(null);
