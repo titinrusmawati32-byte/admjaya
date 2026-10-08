@@ -5,6 +5,7 @@ import crypto from "crypto";
 import dotenv from "dotenv";
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore, doc, setDoc, getDoc, getDocs, collection, deleteDoc } from "firebase/firestore";
+import firebaseConfig from "./firebase-applet-config.json";
 
 dotenv.config();
 
@@ -77,6 +78,55 @@ interface ActiveSession {
 // In-memory sessions store
 const sessions = new Map<string, ActiveSession>();
 
+async function saveSessionToCloud(session: ActiveSession) {
+  if (!firestoreDb) return;
+  try {
+    const sessionDocRef = doc(firestoreDb, "server_internal", `session_${session.token}`);
+    await setDoc(sessionDocRef, {
+      ...session,
+      updatedAt: new Date().toISOString()
+    });
+  } catch (err) {
+    console.warn("[Auth-Server] Error saving session to cloud:", err);
+  }
+}
+
+async function getSessionFromCloud(token: string): Promise<ActiveSession | null> {
+  if (sessions.has(token)) {
+    const sess = sessions.get(token)!;
+    if (Date.now() < sess.expiresAt) return sess;
+    sessions.delete(token);
+  }
+  if (!firestoreDb) return null;
+  try {
+    const sessionDocRef = doc(firestoreDb, "server_internal", `session_${token}`);
+    const snap = await getDoc(sessionDocRef);
+    if (snap.exists()) {
+      const data = snap.data() as ActiveSession;
+      if (Date.now() < data.expiresAt) {
+        sessions.set(token, data);
+        return data;
+      } else {
+        await deleteDoc(sessionDocRef);
+      }
+    }
+  } catch (err) {
+    console.warn("[Auth-Server] Error getting session from cloud:", err);
+  }
+  return null;
+}
+
+async function deleteSessionFromCloud(token: string) {
+  sessions.delete(token);
+  if (!firestoreDb) return;
+  try {
+    const sessionDocRef = doc(firestoreDb, "server_internal", `session_${token}`);
+    await deleteDoc(sessionDocRef);
+  } catch (err) {
+    console.warn("[Auth-Server] Error deleting session from cloud:", err);
+  }
+}
+
 // Rate-limiting map: ip -> { count, firstAttempt }
 const ipRateLimits = new Map<string, { count: number; resetAt: number }>();
 
@@ -88,12 +138,12 @@ const AUDIT_FILE = path.join(DATA_DIR, "audit_logs.json");
 // Connect server to provisioned Firebase Firestore database
 let firestoreDb: any = null;
 try {
-  const firebaseConfigPath = path.join(process.cwd(), "firebase-applet-config.json");
-  if (fs.existsSync(firebaseConfigPath)) {
-    const firebaseConfig = JSON.parse(fs.readFileSync(firebaseConfigPath, "utf-8"));
+  if (firebaseConfig && firebaseConfig.apiKey) {
     const fbApp = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
     firestoreDb = getFirestore(fbApp, firebaseConfig.firestoreDatabaseId);
     console.log("[Auth-Server] Connected to Firestore database:", firebaseConfig.firestoreDatabaseId);
+  } else {
+    console.warn("[Auth-Server] Warning: firebase-applet-config.json was loaded but is missing valid keys.");
   }
 } catch (err) {
   console.warn("[Auth-Server] Notice: Firestore initialization on server:", err);
@@ -356,16 +406,10 @@ function logAudit(entry: Omit<StoredAuditLog, "id" | "timestamp">) {
 }
 
 // Session validation middleware
-function getSessionFromHeader(authHeader?: string): ActiveSession | null {
+async function getSessionFromHeader(authHeader?: string): Promise<ActiveSession | null> {
   if (!authHeader || !authHeader.startsWith("Bearer ")) return null;
   const token = authHeader.split(" ")[1];
-  const session = sessions.get(token);
-  if (!session) return null;
-  if (Date.now() > session.expiresAt) {
-    sessions.delete(token);
-    return null;
-  }
-  return session;
+  return await getSessionFromCloud(token);
 }
 
 const app = express();
@@ -545,6 +589,7 @@ app.post("/api/auth/login", async (req, res) => {
     };
 
     sessions.set(token, sessionData);
+    await saveSessionToCloud(sessionData);
 
     logAudit({
       action: "LOGIN_SUCCESS",
@@ -579,7 +624,7 @@ app.post("/api/auth/login", async (req, res) => {
 
 // 2. VERIFY SESSION: GET /api/auth/verify
 app.get("/api/auth/verify", async (req, res) => {
-  const session = getSessionFromHeader(req.headers.authorization);
+  const session = await getSessionFromHeader(req.headers.authorization);
   if (!session) {
     return res.status(401).json({ status: "error", valid: false });
   }
@@ -588,7 +633,7 @@ app.get("/api/auth/verify", async (req, res) => {
   const users = await getUsers();
   const user = users.find((u) => u.id === session.userId);
   if (!user || normalizeStatus(user.status) !== "ACTIVE") {
-    sessions.delete(session.token);
+    await deleteSessionFromCloud(session.token);
     return res.status(401).json({ status: "error", valid: false, message: "Akun tidak aktif." });
   }
 
@@ -610,10 +655,10 @@ app.get("/api/auth/verify", async (req, res) => {
 });
 
 // 3. LOGOUT: POST /api/auth/logout
-app.post("/api/auth/logout", (req, res) => {
-  const session = getSessionFromHeader(req.headers.authorization);
+app.post("/api/auth/logout", async (req, res) => {
+  const session = await getSessionFromHeader(req.headers.authorization);
   if (session) {
-    sessions.delete(session.token);
+    await deleteSessionFromCloud(session.token);
     logAudit({
       action: "LOGIN_SUCCESS", // Logged out
       actorUsername: session.username,
@@ -627,7 +672,7 @@ app.post("/api/auth/logout", (req, res) => {
 
 // 4. CHANGE PASSWORD: POST /api/auth/change-password
 app.post("/api/auth/change-password", async (req, res) => {
-  const session = getSessionFromHeader(req.headers.authorization);
+  const session = await getSessionFromHeader(req.headers.authorization);
   if (!session) {
     return res.status(401).json({ status: "error", message: "Sesi tidak valid atau telah berakhir." });
   }
@@ -664,6 +709,7 @@ app.post("/api/auth/change-password", async (req, res) => {
 
   // Update session
   session.mustChangePassword = false;
+  await saveSessionToCloud(session);
 
   logAudit({
     action: "PASSWORD_CHANGED",
@@ -685,8 +731,8 @@ app.post("/api/auth/change-password", async (req, res) => {
 // ==========================================
 
 // Middleware: Require Admin
-const requireAdmin = (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  const session = getSessionFromHeader(req.headers.authorization);
+const requireAdmin = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  const session = await getSessionFromHeader(req.headers.authorization);
   if (!session || !isRootAdmin(session.role)) {
     return res.status(403).json({
       status: "error",
@@ -961,8 +1007,8 @@ app.get("/api/admin/audit-logs", requireAdmin, (_req, res) => {
 });
 
 // 8. LOG GENERAL ACTION (Audit Log): POST /api/audit/log-action
-app.post("/api/audit/log-action", (req, res) => {
-  const session = getSessionFromHeader(req.headers.authorization);
+app.post("/api/audit/log-action", async (req, res) => {
+  const session = await getSessionFromHeader(req.headers.authorization);
   if (!session) {
     return res.status(401).json({ status: "error", message: "Sesi tidak valid." });
   }
