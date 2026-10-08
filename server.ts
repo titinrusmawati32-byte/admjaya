@@ -5,7 +5,10 @@ import crypto from "crypto";
 import dotenv from "dotenv";
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore, doc, setDoc, getDoc, getDocs, collection, deleteDoc } from "firebase/firestore";
-import firebaseConfig from "./firebase-applet-config.json";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
+const firebaseConfig = require("./firebase-applet-config.json");
 
 dotenv.config();
 
@@ -270,7 +273,7 @@ async function getUsers(): Promise<StoredUser[]> {
   // 3. Dynamic Seed: Generate initial users on first run with secure, dynamic salts and hashes (no plaintext passwords)
   if (users.length === 0) {
     const adminSalt = generateSalt();
-    const adminHash = hashPassword("admin123", adminSalt);
+    const adminHash = hashPassword("123", adminSalt);
     const guruSalt = generateSalt();
 
     users = [
@@ -315,14 +318,14 @@ async function getUsers(): Promise<StoredUser[]> {
     return users;
   }
 
-  // Enforce migration to admin / admin123 if the admin username has not been set to 'admin' yet
+  // Enforce migration to admin / 123 if the admin username has not been set to 'admin' or password is not '123'
   let modified = false;
   const rootAdmin = users.find(u => isRootAdmin(u.role));
-  if (rootAdmin && rootAdmin.username !== "admin") {
+  if (rootAdmin && (rootAdmin.username !== "admin" || !rootAdmin.salt || rootAdmin.passwordHash !== hashPassword("123", rootAdmin.salt))) {
     rootAdmin.username = "admin";
     const adminSalt = generateSalt();
     rootAdmin.salt = adminSalt;
-    rootAdmin.passwordHash = hashPassword("admin123", adminSalt);
+    rootAdmin.passwordHash = hashPassword("123", adminSalt);
     rootAdmin.mustChangePassword = false;
     modified = true;
   }
