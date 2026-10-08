@@ -5,10 +5,7 @@ import crypto from "crypto";
 import dotenv from "dotenv";
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore, doc, setDoc, getDoc, getDocs, collection, deleteDoc } from "firebase/firestore";
-import { createRequire } from "module";
-
-const require = createRequire(import.meta.url);
-const firebaseConfig = require("./firebase-applet-config.json");
+import firebaseConfig from "./firebase-applet-config.json";
 
 dotenv.config();
 
