@@ -1,0 +1,38 @@
+[
+  {
+    "id": "usr_kepsek_01",
+    "userId": "USR-ROOT-KEPSEK",
+    "nama": "Hamdani, S.Pd., M.Si.",
+    "username": "kepala.sekolah",
+    "nip": "19780514 200212 1 003",
+    "role": "ROOT_ADMIN",
+    "passwordHash": "e146219014b430a3ff26ba907bb0740fedb49f3e95979dfa34545656873d5200023960c4c4d41de5ddeca91b2b77509f503d867d98c8b8b0c45e37b028c3b1da",
+    "salt": "81592708858df8e66c617ef050de2008",
+    "status": "ACTIVE",
+    "createdBy": "SYSTEM_ROOT",
+    "mustChangePassword": false,
+    "failedAttempts": 0,
+    "lockedUntil": null,
+    "lastLogin": "2026-10-08T03:11:38.147Z",
+    "createdAt": "2026-10-08T03:04:31.776Z",
+    "updatedAt": "2026-10-08T03:04:31.776Z"
+  },
+  {
+    "id": "usr_guru_01",
+    "userId": "USR-8F42A91C",
+    "nama": "Drs. Yefri Haryanto, M.Pd.",
+    "username": "guru.yefri",
+    "nip": "19850312 201001 1 008",
+    "role": "GURU",
+    "passwordHash": "1ce0dcc9a94ff3bf5865eb4648a80cb46c4c3177a44648792d245ec3a447b9537ea147c342a831dea70fb9d42b32c34d8264350f58d73a5f7755a2f8a83c176c",
+    "salt": "db2b7865527554d03b6d006409064556",
+    "status": "ACTIVE",
+    "createdBy": "usr_kepsek_01",
+    "mustChangePassword": false,
+    "failedAttempts": 0,
+    "lockedUntil": null,
+    "lastLogin": null,
+    "createdAt": "2026-10-08T03:04:31.856Z",
+    "updatedAt": "2026-10-08T03:04:31.856Z"
+  }
+]

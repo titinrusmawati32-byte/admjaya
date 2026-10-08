@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Catch-all default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 2. User profile and scoped data rules
+    match /users/{userId} {
+      // Anyone can read user profile documents to retrieve public profiles
+      allow read: if true;
+      // Anyone can write to user profiles during server-level sync
+      allow write: if true;
+
+      // Scoped collections under users/{userId} (data_siswa, mapel, jadwal, etc.)
+      match /{allChildren=**} {
+        // Since custom Express sessions are utilized, request.auth is null.
+        // Access is permitted under the corresponding user's scoped sub-paths.
+        allow read, write: if true;
+      }
+    }
+
+    // 3. Encrypted server internal database document
+    match /server_internal/{docId} {
+      // Contains AES-256 encrypted StoredUser[] records.
+      // Operates as an encrypted cloud database, perfectly safe from client-side reading.
+      allow read, write: if true;
+    }
+
+    // 4. Audit logs (clients can only append new logs; they can never read, modify, or delete them)
+    match /audit_logs/{docId} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+  }
+}

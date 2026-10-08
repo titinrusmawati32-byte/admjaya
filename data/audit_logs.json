@@ -1,0 +1,349 @@
+[
+  {
+    "id": "log_1791429098148_ca0fb075",
+    "timestamp": "2026-10-08T03:11:38.148Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "ROOT_ADMIN",
+    "details": "Login berhasil sebagai Kepala Sekolah (ROOT ADMIN) (Internal ID: USR-ROOT-KEPSEK).",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428954269_bb1aa3ed",
+    "timestamp": "2026-10-08T03:09:14.269Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "ROOT_ADMIN",
+    "details": "Login berhasil sebagai Kepala Sekolah (ROOT ADMIN) (Internal ID: USR-ROOT-KEPSEK).",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428920235_bfcc8a9e",
+    "timestamp": "2026-10-08T03:08:40.235Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "ROOT_ADMIN",
+    "details": "Login berhasil sebagai Kepala Sekolah (ROOT ADMIN) (Internal ID: USR-ROOT-KEPSEK).",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428879984_60ea9576",
+    "timestamp": "2026-10-08T03:07:59.984Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "admin",
+    "details": "Percobaan login ditolak: Username tidak terdaftar di database server.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428874760_c926563b",
+    "timestamp": "2026-10-08T03:07:54.760Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "ROOT_ADMIN",
+    "details": "Login berhasil sebagai Kepala Sekolah (ROOT ADMIN) (Internal ID: USR-ROOT-KEPSEK).",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428859002_615fd625",
+    "timestamp": "2026-10-08T03:07:39.002Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "admin",
+    "details": "Percobaan login ditolak: Username tidak terdaftar di database server.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428843517_4bea87c0",
+    "timestamp": "2026-10-08T03:07:23.517Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "admin",
+    "details": "Percobaan login ditolak: Username tidak terdaftar di database server.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428807761_3628f2c5",
+    "timestamp": "2026-10-08T03:06:47.761Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "admin",
+    "details": "Percobaan login ditolak: Username tidak terdaftar di database server.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428785290_a2c89c6c",
+    "timestamp": "2026-10-08T03:06:25.290Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "admin",
+    "details": "Percobaan login ditolak: Username tidak terdaftar di database server.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428776033_a1e952e1",
+    "timestamp": "2026-10-08T03:06:16.033Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "admin",
+    "details": "Percobaan login ditolak: Username tidak terdaftar di database server.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428755804_01bd9edc",
+    "timestamp": "2026-10-08T03:05:55.804Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "admin",
+    "details": "Percobaan login ditolak: Username tidak terdaftar di database server.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428751145_6933be8b",
+    "timestamp": "2026-10-08T03:05:51.145Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "admin",
+    "details": "Percobaan login ditolak: Username tidak terdaftar di database server.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428736930_e16bbd67",
+    "timestamp": "2026-10-08T03:05:36.930Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "admin",
+    "details": "Percobaan login ditolak: Username tidak terdaftar di database server.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428723569_1c2a198a",
+    "timestamp": "2026-10-08T03:05:23.569Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "admin",
+    "details": "Percobaan login ditolak: Username tidak terdaftar di database server.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428714383_18b55bed",
+    "timestamp": "2026-10-08T03:05:14.383Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "ROOT_ADMIN",
+    "details": "Password tidak sesuai. Percobaan ke-2 dari 5.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428711366_57a08b53",
+    "timestamp": "2026-10-08T03:05:11.366Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "admin",
+    "details": "Percobaan login ditolak: Username tidak terdaftar di database server.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428704764_3394aef6",
+    "timestamp": "2026-10-08T03:05:04.764Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "ROOT_ADMIN",
+    "details": "Password tidak sesuai. Percobaan ke-1 dari 5.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428699627_7e27e5bd",
+    "timestamp": "2026-10-08T03:04:59.628Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "admin",
+    "details": "Percobaan login ditolak: Username tidak terdaftar di database server.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428671856_0a76a2b9",
+    "timestamp": "2026-10-08T03:04:31.856Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "admin",
+    "details": "Percobaan login ditolak: Username tidak terdaftar di database server.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428650362_6bc37c8e",
+    "timestamp": "2026-10-08T03:04:10.362Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "admin",
+    "details": "Percobaan login ditolak: Username tidak terdaftar di database server.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428630582_da186762",
+    "timestamp": "2026-10-08T03:03:50.582Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "admin",
+    "details": "Percobaan login ditolak: Username tidak terdaftar di database server.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428616485_cfe55b4c",
+    "timestamp": "2026-10-08T03:03:36.485Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "ROOT_ADMIN",
+    "details": "Login berhasil sebagai Kepala Sekolah (ROOT ADMIN) (Internal ID: USR-ROOT-KEPSEK).",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791428609804_673a6648",
+    "timestamp": "2026-10-08T03:03:29.804Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "admin",
+    "details": "Password tidak sesuai. Percobaan ke-1 dari 5.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791427554123_11673d77",
+    "timestamp": "2026-10-08T02:45:54.123Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "admin",
+    "details": "Login berhasil sebagai Kepala Sekolah (Admin) (Internal ID: USR-ROOT-KEPSEK).",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791425782091_ec786973",
+    "timestamp": "2026-10-08T02:16:22.091Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "admin",
+    "details": "Login berhasil sebagai Kepala Sekolah (Admin) (Internal ID: USR-ROOT-KEPSEK).",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791425707022_f1da184c",
+    "timestamp": "2026-10-08T02:15:07.022Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "admin",
+    "details": "Login berhasil sebagai Kepala Sekolah (Admin) (Internal ID: USR-ROOT-KEPSEK).",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791425551523_c98afaaf",
+    "timestamp": "2026-10-08T02:12:31.523Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "admin",
+    "details": "Login berhasil sebagai Kepala Sekolah (Admin) (Internal ID: USR-ROOT-KEPSEK).",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791425328432_a243a507",
+    "timestamp": "2026-10-08T02:08:48.432Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "admin",
+    "details": "Login berhasil sebagai Kepala Sekolah (Admin) (Internal ID: USR-ROOT-KEPSEK).",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791423251962_7016f774",
+    "timestamp": "2026-10-08T01:34:11.963Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "guru.yefri",
+    "details": "Percobaan login ditolak: Username tidak terdaftar di database server.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791423243392_8bcb5c57",
+    "timestamp": "2026-10-08T01:34:03.392Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "admin",
+    "details": "Pengguna telah keluar dari aplikasi (Logout berhasil).",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791423239939_5bc9406d",
+    "timestamp": "2026-10-08T01:33:59.939Z",
+    "action": "USER_DELETED",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "admin",
+    "targetUsername": "guru.ahmadfauzi88",
+    "details": "Akun Guru \"Ahmad Fauzi, S.Pd.\" (@guru.ahmadfauzi88) dihapus oleh Kepala Sekolah.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791423233058_68953792",
+    "timestamp": "2026-10-08T01:33:53.058Z",
+    "action": "USER_DELETED",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "admin",
+    "targetUsername": "guru.yefri",
+    "details": "Akun Guru \"Drs. Yefri Haryanto, M.Pd.\" (@guru.yefri) dihapus oleh Kepala Sekolah.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791423204278_bd6dc750",
+    "timestamp": "2026-10-08T01:33:24.278Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "admin",
+    "details": "Login berhasil sebagai Kepala Sekolah (Admin) (Internal ID: USR-ROOT-KEPSEK).",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791423183146_e971c9bf",
+    "timestamp": "2026-10-08T01:33:03.147Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "guru.yefri",
+    "actorRole": "guru",
+    "details": "Pengguna telah keluar dari aplikasi (Logout berhasil).",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791423088341_12097945",
+    "timestamp": "2026-10-08T01:31:28.341Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "guru.yefri",
+    "actorRole": "guru",
+    "details": "Login berhasil sebagai Guru (Internal ID: USR-1D08F40D).",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791422649549_2158d29b",
+    "timestamp": "2026-10-08T01:24:09.549Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "admin",
+    "details": "Password tidak sesuai. Percobaan ke-1 dari 5.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791422117326_89515f9e",
+    "timestamp": "2026-10-08T01:15:17.326Z",
+    "action": "USER_CREATED",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "admin",
+    "targetUsername": "guru.ahmadfauzi88",
+    "details": "Akun Guru \"Ahmad Fauzi, S.Pd.\" (@guru.ahmadfauzi88) dibuat oleh Kepala Sekolah.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791422092840_58e393a0",
+    "timestamp": "2026-10-08T01:14:52.841Z",
+    "action": "LOGIN_FAILED",
+    "actorUsername": "guru.yefri",
+    "actorRole": "guru",
+    "details": "Password tidak sesuai. Percobaan ke-1 dari 5.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791422088330_0ec385e0",
+    "timestamp": "2026-10-08T01:14:48.330Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "guru.yefri",
+    "actorRole": "guru",
+    "details": "Login berhasil sebagai Guru.",
+    "ipAddress": "127.0.0.1"
+  },
+  {
+    "id": "log_1791422084794_9ac7c179",
+    "timestamp": "2026-10-08T01:14:44.794Z",
+    "action": "LOGIN_SUCCESS",
+    "actorUsername": "kepala.sekolah",
+    "actorRole": "admin",
+    "details": "Login berhasil sebagai Kepala Sekolah (Admin).",
+    "ipAddress": "127.0.0.1"
+  }
+]

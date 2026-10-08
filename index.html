@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta id="theme-color-meta" name="theme-color" content="#EEF7FF" />
+    <title>Remix Remix APLIKASI GURU AI</title>
+    <meta name="description" content="Sistem Administrasi Guru Digital terintegrasi Asisten AI dan Firebase Database." />
+    <meta property="og:title" content="Remix Remix APLIKASI GURU AI" />
+    <meta property="og:description" content="Sistem Administrasi Guru Digital terintegrasi Asisten AI dan Firebase Database." />
+
+    <!-- Google Fonts: Plus Jakarta Sans (Primary) & Manrope (Secondary Numeric/KPI) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet" />
+
+    <!-- 
+      Inline Anti-Flash Script:
+      Executes synchronously before DOM rendering to prevent light/dark flash (FOUC).
+    -->
+    <script>
+      (function() {
+        try {
+          var stored = localStorage.getItem('theme');
+          var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var isDark = stored === 'dark' || (!stored && systemDark) || (stored === 'system' && systemDark);
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+            var meta = document.getElementById('theme-color-meta');
+            if (meta) meta.setAttribute('content', '#101B2D');
+          } else {
+            document.documentElement.classList.remove('dark');
+            var meta = document.getElementById('theme-color-meta');
+            if (meta) meta.setAttribute('content', '#EEF7FF');
+          }
+        } catch (e) {
+          // Fallback gracefully if localStorage is disabled or throws
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

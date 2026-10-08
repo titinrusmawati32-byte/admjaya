@@ -1,0 +1,375 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import "tailwindcss";
+
+/* 
+ * Tailwind CSS v4 Theme Extension
+ * Primary Font: Plus Jakarta Sans
+ * Secondary Font: Manrope (Statistics, Numbers, KPI, Numerics)
+ */
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-numeric: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-manrope: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* 
+ * Enable Tailwind CSS v4 class-based dark mode.
+ * Activates 'dark:' variant whenever .dark class is on <html> or any parent element.
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* 
+ * GOLD + LIGHT BLUE + NAVY Design Tokens
+ * Light Mode: Soft White / Very Light Blue / Very Light Gold Tint & Navy text
+ * Dark Mode: Soft Dark Navy (#101B2D / #14243A / #192B43), NOT black
+ * Gold as Premium Accent & Light Blue as Secondary Accent
+ */
+:root {
+  /* Color Palette - Light Mode */
+  --color-primary: #F4B400;          /* Primary Gold */
+  --color-primary-soft: #FFD66B;     /* Soft Gold */
+  --color-primary-light: #FFF1C7;    /* Very Soft Gold */
+  --color-primary-dark: #D49B00;
+  
+  --color-secondary: #5BB6F9;        /* Sky Blue */
+  --color-secondary-soft: #8DD3FF;   /* Light Blue */
+  --color-secondary-light: #E8F5FF;  /* Very Light Blue */
+  
+  --color-navy: #0F1E36;             /* Navy Text */
+  --color-navy-muted: #334E68;
+  
+  --bg-page: #EEF7FF;
+  --bg-surface: rgba(255, 255, 255, 0.92);
+  --bg-surface-solid: #FFFFFF;
+  --bg-surface-elevated: #F8FBFE;
+  --bg-sidebar: #FFFFFF;
+  --bg-sidebar-active: #E8F5FF;
+  
+  --border-subtle: rgba(120, 160, 200, 0.18);
+  --border-strong: rgba(120, 160, 200, 0.32);
+  
+  --text-primary: #0F1E36;           /* Navy text */
+  --text-secondary: #334E68;
+  --text-muted: #627D98;
+  
+  --accent-primary: #F4B400;
+  --accent-primary-hover: #FFD66B;
+  --accent-secondary: #5BB6F9;
+  
+  --status-success: #10B981;
+  --status-warning: #F59E0B;
+  --status-danger: #EF4444;
+  --status-info: #5BB6F9;
+
+  --shadow-subtle: 0 1px 3px 0 rgba(15, 30, 60, 0.04), 0 1px 2px -1px rgba(91, 182, 249, 0.04);
+  --shadow-card: 0 4px 16px -2px rgba(15, 30, 60, 0.05), 0 0 10px rgba(91, 182, 249, 0.04);
+  --shadow-card-hover: 0 8px 24px -4px rgba(15, 30, 60, 0.08), 0 2px 12px rgba(91, 182, 249, 0.08);
+  --shadow-modal: 0 20px 35px -8px rgba(15, 30, 60, 0.12), 0 0 20px rgba(91, 182, 249, 0.08);
+
+  --glow-gold: 0 0 20px rgba(244, 180, 0, 0.14);
+  --glow-blue: 0 0 20px rgba(91, 182, 249, 0.14);
+
+  color-scheme: light;
+}
+
+.dark {
+  /* Color Palette - Dark Mode (Soft Dark Navy, NEVER #000000 / #050505 / #0A0A0A) */
+  --color-primary: #F6C453;          /* Dark Gold */
+  --color-primary-soft: #FFD978;     /* Dark Soft Gold */
+  --color-primary-light: #2A3644;
+  --color-primary-dark: #CFA94D;     /* Dark Muted Gold */
+  
+  --color-secondary: #67C7FF;        /* Dark Sky Blue */
+  --color-secondary-soft: #8DD8FF;   /* Dark Soft Blue */
+  --color-secondary-light: #1D354E;
+  
+  --color-navy: #101B2D;             /* Main Background Soft Dark Navy */
+  --color-navy-muted: #8FA6C1;
+  
+  --bg-page: #101B2D;                /* Main Background */
+  --bg-surface: #192B43;             /* Surface */
+  --bg-surface-solid: #192B43;
+  --bg-surface-elevated: #203650;    /* Elevated Surface */
+  --bg-sidebar: #14243A;             /* Secondary Background */
+  --bg-sidebar-active: #1D405D;
+  
+  --border-subtle: rgba(150, 200, 240, 0.15);
+  --border-strong: rgba(150, 200, 240, 0.28);
+  
+  --text-primary: #F0F6FC;           /* Soft White / Navy Contrast */
+  --text-secondary: #A5B9CF;
+  --text-muted: #6B829E;
+  
+  --accent-primary: #F6C453;
+  --accent-primary-hover: #FFD978;
+  --accent-secondary: #67C7FF;
+  
+  --status-success: #34D399;
+  --status-warning: #FBBF24;
+  --status-danger: #F87171;
+  --status-info: #67C7FF;
+
+  --shadow-subtle: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px -1px rgba(91, 182, 249, 0.05);
+  --shadow-card: 0 4px 16px -2px rgba(5, 12, 24, 0.45), 0 0 12px rgba(91, 182, 249, 0.05);
+  --shadow-card-hover: 0 8px 24px -4px rgba(5, 12, 24, 0.55), 0 0 20px rgba(91, 182, 249, 0.09);
+  --shadow-modal: 0 25px 45px -10px rgba(5, 12, 24, 0.7), 0 0 25px rgba(91, 182, 249, 0.09);
+
+  --glow-gold: 0 0 20px rgba(246, 196, 83, 0.14);
+  --glow-blue: 0 0 20px rgba(103, 199, 255, 0.14);
+
+  color-scheme: dark;
+}
+
+/* 
+ * Typography System
+ * Primary: Plus Jakarta Sans (Brand 800, Headings 700, Buttons/Active 600, Sidebar 500, Body/Desc 400)
+ * Secondary: Manrope (Dashboard Metrics, KPI, Statistics, Numerical Data, Highlights)
+ */
+@layer base {
+  *, ::before, ::after {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  html, body {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    letter-spacing: -0.006em;
+    line-height: 1.5;
+    touch-action: manipulation;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    transition: background-color 350ms cubic-bezier(0.4, 0, 0.2, 1), 
+                border-color 350ms cubic-bezier(0.4, 0, 0.2, 1), 
+                color 350ms cubic-bezier(0.4, 0, 0.2, 1), 
+                box-shadow 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* 800 for App Name & Main Headings */
+  h1, .font-heading-main, .font-app-name {
+    font-family: var(--font-sans);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+  }
+
+  /* 700 for Page Headings */
+  h2, h3, .font-heading-page {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+
+  /* 600 for Buttons & Active Navigation */
+  button, [role="button"], .font-btn {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* 500 for Sidebar Menu */
+  .font-sidebar-menu, nav a, nav button {
+    font-family: var(--font-sans);
+    letter-spacing: -0.008em;
+  }
+
+  /* 400 for Descriptions & Supporting Text */
+  p, label, span, td, .font-desc {
+    letter-spacing: -0.005em;
+  }
+}
+
+@layer utilities {
+  /* Secondary Font Manrope for Statistics, Dashboard Figures, Numerical Data & KPI */
+  .font-numeric,
+  .font-manrope,
+  .font-num,
+  .font-kpi {
+    font-family: var(--font-numeric) !important;
+    font-feature-settings: "tnum" 1, "zero" 1, "ss01" 1 !important;
+    font-variant-numeric: tabular-nums lining-nums !important;
+    letter-spacing: -0.02em;
+  }
+
+  /* Interactive Card with Smooth Depth Hover */
+  .card-app {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-card);
+    transition: transform 220ms cubic-bezier(0.4, 0, 0.2, 1), 
+                box-shadow 220ms cubic-bezier(0.4, 0, 0.2, 1), 
+                background-color 350ms cubic-bezier(0.4, 0, 0.2, 1), 
+                border-color 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-app:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  /* Primary Gold Button */
+  .btn-gold {
+    background-color: #F4B400;
+    color: #0F1E36;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px -2px rgba(244, 180, 0, 0.35);
+    transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-gold:hover {
+    background-color: #FFD66B;
+    box-shadow: 0 6px 16px -2px rgba(244, 180, 0, 0.45);
+  }
+  .btn-gold:active {
+    transform: scale(0.98);
+  }
+  .dark .btn-gold {
+    background-color: #F6C453;
+    color: #0F1E36;
+    box-shadow: 0 4px 14px -2px rgba(246, 196, 83, 0.3);
+  }
+  .dark .btn-gold:hover {
+    background-color: #FFD978;
+    box-shadow: 0 6px 18px -2px rgba(246, 196, 83, 0.4);
+  }
+
+  /* Secondary Sky Blue Button */
+  .btn-sky {
+    background-color: #E8F5FF;
+    color: #0284C7;
+    border: 1px solid rgba(91, 182, 249, 0.3);
+    font-weight: 600;
+    border-radius: 0.75rem;
+    transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .btn-sky:hover {
+    background-color: #D9EFFF;
+    border-color: rgba(91, 182, 249, 0.5);
+    color: #0369A1;
+  }
+  .btn-sky:active {
+    transform: scale(0.98);
+  }
+  .dark .btn-sky {
+    background-color: #1D405D;
+    color: #8DD8FF;
+    border-color: rgba(103, 199, 255, 0.25);
+  }
+  .dark .btn-sky:hover {
+    background-color: #234E72;
+    border-color: rgba(103, 199, 255, 0.4);
+    color: #BAE6FD;
+  }
+
+  /* Subtle Decorative Glows */
+  .glow-gold-subtle {
+    box-shadow: 0 0 20px rgba(244, 180, 0, 0.12);
+  }
+  .dark .glow-gold-subtle {
+    box-shadow: 0 0 20px rgba(246, 196, 83, 0.12);
+  }
+  .glow-blue-subtle {
+    box-shadow: 0 0 20px rgba(91, 182, 249, 0.12);
+  }
+  .dark .glow-blue-subtle {
+    box-shadow: 0 0 20px rgba(103, 199, 255, 0.12);
+  }
+
+  /* Prevent blue tap highlight overlay on mobile devices */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Custom subtle scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(120, 160, 200, 0.35);
+    border-radius: 9999px;
+  }
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(150, 200, 240, 0.25);
+  }
+
+  /* Safe Area Inset Padding */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 12px);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+}
+
+/* SweetAlert2 Theme Integration with Soft Dark Navy Surface */
+.dark .swal2-popup {
+  background: #192B43 !important;
+  color: #F0F6FC !important;
+  border: 1px solid rgba(150, 200, 240, 0.18) !important;
+  box-shadow: 0 25px 50px -12px rgba(5, 12, 24, 0.75) !important;
+}
+.dark .swal2-title {
+  color: #F0F6FC !important;
+}
+.dark .swal2-html-container {
+  color: #A5B9CF !important;
+}
+.dark .swal2-timer-progress-bar {
+  background: #F6C453 !important;
+}
+.dark .swal2-input,
+.dark .swal2-textarea,
+.dark .swal2-select {
+  background: #14243A !important;
+  color: #F0F6FC !important;
+  border-color: rgba(150, 200, 240, 0.25) !important;
+}
+.dark .swal2-validation-message {
+  background: #203650 !important;
+  color: #F87171 !important;
+}
+
+/* Specific Mobile Layout Fixes (@media max-width: 768px) */
+@media (max-width: 768px) {
+  header {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  .line-clamp-2 {
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    overflow: visible !important;
+  }
+
+  button, a {
+    touch-action: manipulation;
+  }
+}
+
+/* Global Print Stylesheet */
+@media print {
+  body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+  img, .logo-sekolah, .kop-logo {
+    display: inline-block !important;
+    visibility: visible !important;
+    max-height: 80px;
+    width: auto;
+    object-fit: contain;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
