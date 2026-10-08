@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import firebaseConfigData from "../../firebase-applet-config.json";
 import { getStoredUser, apiLogout, apiRecordAuditLog } from "./authApi";
+import { isSupabaseActive, supabaseUpsertDocument, supabaseDeleteDocument } from "./supabase";
 import { 
   Siswa, 
   Mapel, 
@@ -249,6 +250,11 @@ export async function saveDocument(collectionName: string, id: string, data: Rec
     return;
   }
 
+  // Mirror to Supabase if configured
+  if (isSupabaseActive()) {
+    supabaseUpsertDocument(collectionName, id, data, targetUid).catch(() => {});
+  }
+
   try {
     const docRef = doc(firestore, "users", targetUid, collectionName, id);
     await setDoc(docRef, { ...data, updatedAt: Date.now(), userUid: targetUid }, { merge: true });
@@ -275,6 +281,11 @@ export async function deleteDocument(collectionName: string, id: string, uid?: s
       details: `Hapus permanen dokumen [${metadata?.label || collectionName}] ID: ${id}. ${metadata?.details || ""}`.trim()
     });
   } catch {}
+
+  // Mirror delete to Supabase if configured
+  if (isSupabaseActive()) {
+    supabaseDeleteDocument(collectionName, id).catch(() => {});
+  }
 
   if (isIsolatedRemix()) {
     return;

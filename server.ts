@@ -5,6 +5,7 @@ import crypto from "crypto";
 import dotenv from "dotenv";
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore, doc, setDoc, getDoc, getDocs, collection, deleteDoc } from "firebase/firestore";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { createRequire } from "module";
 
 let firebaseConfigData: any = null;
@@ -21,6 +22,22 @@ try {
 }
 
 dotenv.config();
+
+// Supabase Configuration for Server
+const SUPABASE_URL = (process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || "").trim();
+const SUPABASE_KEY = (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY || "").trim();
+
+let supabaseServer: any = null;
+if (SUPABASE_URL && SUPABASE_KEY) {
+  try {
+    supabaseServer = createSupabaseClient(SUPABASE_URL, SUPABASE_KEY, {
+      auth: { persistSession: false, autoRefreshToken: false }
+    });
+    console.log("[Auth-Server] Connected to Supabase backend:", SUPABASE_URL);
+  } catch (err) {
+    console.warn("[Auth-Server] Supabase server init error:", err);
+  }
+}
 
 // Standardized Firebase Config with full environment and static fallbacks for Vercel production
 const firebaseConfig = {
@@ -328,8 +345,37 @@ async function getUsers(): Promise<StoredUser[]> {
   ensureDataDir();
   let users: StoredUser[] = [];
 
-  // 1. First try reading from Firestore cloud store (authoritative for production/Vercel)
-  if (firestoreDb) {
+  // 1. If Supabase is configured, read from Supabase app_users table
+  if (supabaseServer) {
+    try {
+      const { data: suData, error } = await supabaseServer.from("app_users").select("*");
+      if (!error && suData && suData.length > 0) {
+        users = suData.map((su: any) => ({
+          id: su.id,
+          userId: su.user_id,
+          nama: su.nama,
+          username: su.username,
+          nip: su.nip || "",
+          role: normalizeRole(su.role),
+          passwordHash: su.password_hash,
+          salt: su.salt,
+          status: "ACTIVE",
+          createdBy: su.created_by || "system",
+          mustChangePassword: Boolean(su.must_change_password),
+          failedAttempts: 0,
+          lockedUntil: null,
+          lastLogin: null,
+          createdAt: su.created_at || new Date().toISOString(),
+          updatedAt: su.updated_at || new Date().toISOString()
+        }));
+      }
+    } catch (sbErr) {
+      console.warn("[Auth-Server] Notice: Supabase app_users query error:", sbErr);
+    }
+  }
+
+  // 2. Try reading from Firestore cloud store (authoritative for production/Vercel)
+  if (users.length === 0 && firestoreDb) {
     try {
       const docRef = doc(firestoreDb, "server_internal", "users_db");
       const snap = await getDoc(docRef);
@@ -342,7 +388,7 @@ async function getUsers(): Promise<StoredUser[]> {
     }
   }
 
-  // 2. Fallback: Read local users.json if it exists
+  // 3. Fallback: Read local users.json if it exists
   if (users.length === 0 && fs.existsSync(USERS_FILE)) {
     try {
       const raw = fs.readFileSync(USERS_FILE, "utf-8");
@@ -457,6 +503,29 @@ async function saveUsers(users: StoredUser[]) {
   for (const u of users) {
     syncFirestoreUser(u).catch(() => {});
   }
+
+  // 4. Sync users to Supabase app_users table if connected
+  if (supabaseServer) {
+    try {
+      for (const u of users) {
+        await supabaseServer.from("app_users").upsert({
+          id: u.id,
+          user_id: u.userId,
+          username: u.username,
+          password_hash: u.passwordHash,
+          salt: u.salt,
+          nama: u.nama,
+          role: isRootAdmin(u.role) ? "admin" : "guru",
+          nip: u.nip || "",
+          created_by: u.createdBy || "system",
+          must_change_password: Boolean(u.mustChangePassword),
+          updated_at: new Date().toISOString()
+        }, { onConflict: "username" });
+      }
+    } catch (sbErr) {
+      console.warn("[Auth-Server] Notice: Supabase app_users upsert error:", sbErr);
+    }
+  }
 }
 
 
@@ -490,6 +559,18 @@ function logAudit(entry: Omit<StoredAuditLog, "id" | "timestamp">) {
     ensureDataDir();
     fs.writeFileSync(AUDIT_FILE, JSON.stringify(logs, null, 2), "utf-8");
     syncFirestoreAuditLog(newEntry).catch(() => {});
+
+    // Sync to Supabase audit_logs table if connected
+    if (supabaseServer) {
+      supabaseServer.from("audit_logs").insert({
+        id: newEntry.id,
+        user_id: newEntry.actorUsername || "system",
+        action: newEntry.action,
+        details: newEntry.details || "",
+        ip_address: newEntry.ipAddress || "",
+        timestamp: newEntry.timestamp
+      }).then().catch(() => {});
+    }
   } catch (err) {
     console.error("Audit log error:", err);
   }
@@ -529,6 +610,24 @@ const apiRouter = express.Router();
 // Health check API
 apiRouter.get("/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString(), firestoreConnected: Boolean(firestoreDb) });
+});
+
+// Database connectivity status (Firebase & Supabase)
+apiRouter.get("/database/status", (_req, res) => {
+  res.json({
+    status: "ok",
+    timestamp: new Date().toISOString(),
+    firebase: {
+      connected: Boolean(firestoreDb),
+      projectId: firebaseConfig.projectId,
+      databaseId: firebaseConfig.firestoreDatabaseId
+    },
+    supabase: {
+      connected: Boolean(supabaseServer),
+      configured: Boolean(SUPABASE_URL && SUPABASE_KEY),
+      url: SUPABASE_URL ? SUPABASE_URL.replace(/https:\/\/(.*?)\..*/, "https://$1.supabase.co") : null
+    }
+  });
 });
 
 // ==========================================
